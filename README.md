@@ -1,319 +1,327 @@
-# Friends Don't Let Friends Make Bad Graphs 
+<div dir="rtl" align="right">
 
+# دوستان نمی‌گذارند دوستانشان نمودارهای بد بسازند
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7542491.svg)](https://doi.org/10.5281/zenodo.7542491)
 
+دوستان نمی‌گذارند دوستانشان برخی گونه‌های خاص از مصورسازی داده را بسازند؛ این‌ها چه هستند و چرا بد‌اند.
 
-Friends don't let friends make certain types of data visualization - What are they and why are they bad. 
+* نویسنده: چِنشین لی (Chenxin Li)، دکترا، استادیار گروه زیست‌شناسی گیاهی، دانشگاه ایالتی میشیگان.
+* راه ارتباطی: lichen27@msu.edu | [@chenxinli2.bsky.social](https://bsky.app/profile/chenxinli2.bsky.social)
 
-* Author: Chenxin Li, Ph.D., Assistant Professor at Department of Plant Biology, Michigan State University. 
-* Contact: lichen27@msu.edu | [@chenxinli2.bsky.social](https://bsky.app/profile/chenxinli2.bsky.social)
+این یک جستار *دیدگاه‌محور* درباره‌ی شیوه‌های خوب و بد در مصورسازی داده است.
+نمونه‌ها و توضیح‌ها در ادامه آمده‌اند.
 
-This is an *opinionated* essay about good and bad practices in data visualization. 
-Examples and explanations are below. 
+پوشه‌ی `Scripts/` شامل فایل‌های `.Rmd` است که نمودارهای نشان‌داده‌شده در پایین را تولید می‌کنند.
+برای اجرای آن‌ها به R، RStudio و بسته‌ی rmarkdown نیاز است.
 
-The `Scripts/` directory contains `.Rmd` files that generate the graphics shown below. 
-It requires R, RStudio, and the rmarkdown package. 
+* R: [دریافت R](https://cran.r-project.org/bin/)
+* RStudio: [دریافت RStudio](https://www.rstudio.com/products/rstudio/download/)
+* بسته‌ی rmarkdown را می‌توان از طریق رابط نصب بسته‌ها (install packages) در RStudio نصب کرد.
 
-* R: [R Download](https://cran.r-project.org/bin/)
-* RStudio: [RStudio Download](https://www.rstudio.com/products/rstudio/download/)
-* rmarkdown can be installed using the install packages interface in RStudio
+بازگردانی به فارسی: [علیرضا چمن‌زار](http://alirezach.github.io/)
 
-# Table of contents
+# فهرست مطالب
 
-1. [Friends Don't Let Friends Make Bar Plots For Mean Separation](https://github.com/cxli233/FriendsDontLetFriends#1-friends-dont-let-friends-make-bar-plots-for-means-separation)
-2. [Friends Don't Let Friends Make Violin Plots for Small Sample Sizes](https://github.com/cxli233/FriendsDontLetFriends#2-friends-dont-let-friends-make-violin-plots-for-small-sample-sizes)
-3. [Friends Don't Let Friends Use Bidirectional Color Scales for Unidirectional Data](https://github.com/cxli233/FriendsDontLetFriends#3-friends-dont-let-friends-use-bidirectional-color-scales-for-unidirectional-data)
-4. [Friends Don't Let Friends Make Bar Plot Meadow](https://github.com/cxli233/FriendsDontLetFriends#4-friends-dont-let-friends-make-bar-plot-meadow)
-5. [Friends Don't Let Friends Make Heatmap without Reordering Rows & Columns](https://github.com/cxli233/FriendsDontLetFriends#5-friends-dont-let-friends-make-heatmap-without-considering-reordering-rows--columns)
-6. [Friends Don't Let Friends Make Heatmap without Checking Outliers](https://github.com/cxli233/FriendsDontLetFriends#6-friends-dont-let-friends-make-heatmap-without-checking-outliers)
-7. [Friends Don't Let Friends Forget to Check Data Range at Each Factor Level](https://github.com/cxli233/FriendsDontLetFriends#7-friends-dont-let-friends-forget-to-check-data-range-at-each-factor-level)
-8. [Friends Don't Let Friends Make Network Graphs without Trying Different Layouts](https://github.com/cxli233/FriendsDontLetFriends#8-friends-dont-let-friends-make-network-graphs-without-trying-different-layouts) 
-9. [Friends Don't Let Friends Confuse Position and Length Based Visualizations](https://github.com/cxli233/FriendsDontLetFriends#9-friends-dont-let-friends-confuse-position-based-visualizations-with-length-based-visualizations) 
-10. [Friends Don't Let Friends Make Pie Charts](https://github.com/cxli233/FriendsDontLetFriends#10-friends-dont-let-friends-make-pie-chart) 
-11. [Friends Don't Let Friends Make Concentric Donuts](https://github.com/cxli233/FriendsDontLetFriends#11-friends-dont-let-friends-make-concentric-donuts)
-12. [Friends Don't Let Friends Use Red/green and Rainbow for Color Scales](https://github.com/cxli233/FriendsDontLetFriends#12-friends-dont-let-friends-use-redgreen-and-rainbow-color-scales)
-13. [Friends Don't Let Friends Forget to Reorder Stacked Bar Plot](https://github.com/cxli233/FriendsDontLetFriends/tree/main#13-friends-dont-let-friends-forget-to-reorder-stacked-bar-plot)
-14. [Friends Don't Let Friends Mix Stacked Bars and Mean separation](https://github.com/cxli233/FriendsDontLetFriends/tree/main#14-friends-dont-let-friends-mix-stacked-bars-and-mean-separation)
-15. [Friends Don't Let Friends Use Histogram for Small Sample Sizes](https://github.com/cxli233/FriendsDontLetFriends/tree/main?tab=readme-ov-file#friends-dont-let-friends-use-histogram-for-small-sample-sizes)
-16. [Friends don't Let Friends Use Boxpot for Bimodal Data](https://github.com/cxli233/FriendsDontLetFriends?tab=readme-ov-file#friends-dont-let-friends-use-boxpot-for-bimodal-data)
+1. [دوستان نمی‌گذارند دوستانشان برای جداسازی میانگین‌ها نمودار میله‌ای بسازند](https://github.com/cxli233/FriendsDontLetFriends#1-friends-dont-let-friends-make-bar-plots-for-means-separation)
+2. [دوستان نمی‌گذارند دوستانشان برای نمونه‌های کوچک نمودار ویولنی بسازند](https://github.com/cxli233/FriendsDontLetFriends#2-friends-dont-let-friends-make-violin-plots-for-small-sample-sizes)
+3. [دوستان نمی‌گذارند دوستانشان برای داده‌ی یک‌سویه از طیف‌های رنگی دوسویه استفاده کنند](https://github.com/cxli233/FriendsDontLetFriends#3-friends-dont-let-friends-use-bidirectional-color-scales-for-unidirectional-data)
+4. [دوستان نمی‌گذارند دوستانشان «چمن‌زار نمودار میله‌ای» بسازند](https://github.com/cxli233/FriendsDontLetFriends#4-friends-dont-let-friends-make-bar-plot-meadow)
+5. [دوستان نمی‌گذارند دوستانشان بدون بازچینش سطرها و ستون‌ها نقشه‌ی حرارتی بسازند](https://github.com/cxli233/FriendsDontLetFriends#5-friends-dont-let-friends-make-heatmap-without-considering-reordering-rows--columns)
+6. [دوستان نمی‌گذارند دوستانشان بدون بررسی داده‌های پرت نقشه‌ی حرارتی بسازند](https://github.com/cxli233/FriendsDontLetFriends#6-friends-dont-let-friends-make-heatmap-without-checking-outliers)
+7. [دوستان نمی‌گذارند دوستانشان فراموش کنند بازه‌ی داده را در هر سطح از عامل بررسی کنند](https://github.com/cxli233/FriendsDontLetFriends#7-friends-dont-let-friends-forget-to-check-data-range-at-each-factor-level)
+8. [دوستان نمی‌گذارند دوستانشان بدون آزمودن چیدمان‌های گوناگون نمودار شبکه‌ای بسازند](https://github.com/cxli233/FriendsDontLetFriends#8-friends-dont-let-friends-make-network-graphs-without-trying-different-layouts)
+9. [دوستان نمی‌گذارند دوستانشان مصورسازی‌های مبتنی بر موقعیت را با مصورسازی‌های مبتنی بر طول اشتباه بگیرند](https://github.com/cxli233/FriendsDontLetFriends#9-friends-dont-let-friends-confuse-position-based-visualizations-with-length-based-visualizations)
+10. [دوستان نمی‌گذارند دوستانشان نمودار دایره‌ای بسازند](https://github.com/cxli233/FriendsDontLetFriends#10-friends-dont-let-friends-make-pie-chart)
+11. [دوستان نمی‌گذارند دوستانشان دونات‌های هم‌مرکز بسازند](https://github.com/cxli233/FriendsDontLetFriends#11-friends-dont-let-friends-make-concentric-donuts)
+12. [دوستان نمی‌گذارند دوستانشان از طیف‌های رنگی قرمز/سبز و رنگین‌کمانی استفاده کنند](https://github.com/cxli233/FriendsDontLetFriends#12-friends-dont-let-friends-use-redgreen-and-rainbow-color-scales)
+13. [دوستان نمی‌گذارند دوستانشان فراموش کنند نمودار میله‌ای انباشته را بازچینش کنند](https://github.com/cxli233/FriendsDontLetFriends/tree/main#13-friends-dont-let-friends-forget-to-reorder-stacked-bar-plot)
+14. [دوستان نمی‌گذارند دوستانشان میله‌های انباشته و جداسازی میانگین را با هم درآمیزند](https://github.com/cxli233/FriendsDontLetFriends/tree/main#14-friends-dont-let-friends-mix-stacked-bars-and-mean-separation)
+15. [دوستان نمی‌گذارند دوستانشان برای نمونه‌های کوچک از هیستوگرام استفاده کنند](https://github.com/cxli233/FriendsDontLetFriends/tree/main?tab=readme-ov-file#friends-dont-let-friends-use-histogram-for-small-sample-sizes)
+16. [دوستان نمی‌گذارند دوستانشان برای داده‌ی دومُدی از نمودار جعبه‌ای استفاده کنند](https://github.com/cxli233/FriendsDontLetFriends?tab=readme-ov-file#friends-dont-let-friends-use-boxpot-for-bimodal-data)
 
-# 1. Friends Don't Let Friends Make Bar Plots for Means Separation
+# ۱. دوستان نمی‌گذارند دوستانشان برای جداسازی میانگین‌ها نمودار میله‌ای بسازند
 
-This has to be the first one. 
-Means separation plots are some of the most common in scientific publications. 
-We have two or more groups, which contains multiple observations; they may have different means, variances, and distributions. 
-The task of the visualization is to show the means and the spread (dispersion) of the data. 
+این باید همان مورد نخست باشد.
+نمودارهای جداسازی میانگین از رایج‌ترین نمودارها در انتشارات علمی‌اند.
+ما دو یا چند گروه داریم که هر کدام چندین مشاهده را دربر می‌گیرند؛ این گروه‌ها ممکن است میانگین‌ها، واریانس‌ها و توزیع‌های متفاوتی داشته باشند.
+وظیفه‌ی مصورسازی این است که میانگین‌ها و پراکندگی (گستردگی) داده‌ها را نشان دهد.
 
-![No Bar Plots for Means Separation](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/dont_bar_plot.png) 
+![بدون نمودار میله‌ای برای جداسازی میانگین‌ها](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/dont_bar_plot.png)
 
-In this example, two groups have similar means and standard deviations, but quite different distributions. **Are they really "the same"?**
-Just don't use bar plot for means separation, or at least check a couple things before settling down on a bar plot. 
+در این نمونه، دو گروه میانگین‌ها و انحراف معیارهای مشابهی دارند، اما توزیع‌هایشان کاملاً متفاوت است. **آیا واقعاً «یکسان‌اند»؟**
+برای جداسازی میانگین‌ها از نمودار میله‌ای استفاده نکنید، یا دست‌کم پیش از آن‌که تصمیم خود را روی نمودار میله‌ای قطعی کنید، چند نکته را بررسی کنید.
 
-It's worth mentioning that I was inspired by many researchers who have tweeted on the limitation of bar graphs. 
-Here is a publication: [Weissgerber et al., 2015, PLOS Biology](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128). 
+شایان ذکر است که من از بسیاری پژوهشگرانی که درباره‌ی محدودیت‌های نمودار میله‌ای توییت کرده‌اند الهام گرفتم.
+اینجا یک مقاله‌ی مرتبط است: [Weissgerber et al., 2015, PLOS Biology](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128).
 
-# 2. Friends Don't Let Friends Make Violin Plots for Small Sample Sizes 
+# ۲. دوستان نمی‌گذارند دوستانشان برای نمونه‌های کوچک نمودار ویولنی بسازند
 
-This is quite common in the literature as well, but unfortunately, violin plots (or any sort of smoothed distribution curves) make no sense for small n. 
+این هم در متون علمی بسیار رایج است، اما متأسفانه نمودارهای ویولنی (یا هر نوع منحنی توزیع هموارشده) برای n کوچک هیچ معنایی ندارند.
 
-![Beware of Violin Plots for Small Sample Sizes](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Beware_of_small_n_box_violin_plot.png) 
+![مراقب نمودارهای ویولنی برای نمونه‌های کوچک باشید](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Beware_of_small_n_box_violin_plot.png)
 
-Distributions and quartiles can vary widely with small n, even if the underlying observations are similar. 
-Distribution and quartiles are only meaningful with large n. 
-I did an experiment before, where I sampled the *same* normal distribution several times and computed the quartiles for each sample.
-The quartiles only stablize when n gets larger than 50. 
+توزیع‌ها و چارک‌ها با n کوچک می‌توانند به‌شدت تغییر کنند، حتی اگر مشاهده‌های زیربنایی مشابه باشند.
+توزیع و چارک‌ها تنها با n بزرگ معنادار می‌شوند.
+پیش‌تر آزمایشی انجام دادم که در آن *همان* توزیع نرمال را چند بار نمونه‌برداری کردم و چارک‌های هر نمونه را محاسبه کردم.
+چارک‌ها تنها زمانی پایدار می‌شوند که n بزرگ‌تر از ۵۰ شود.
 
-# 3. Friends Don't Let Friends Use Bidirectional Color Scales for Unidirectional Data 
+# ۳. دوستان نمی‌گذارند دوستانشان برای داده‌ی یک‌سویه از طیف‌های رنگی دوسویه استفاده کنند
 
-Excuse my language, but this is a truly data visualization sin, and again quite common. 
-I can understand why this error is common, because it appears that many of us have not spent a lot of thoughts on this issue. 
+با عرض پوزش از بیانم، اما این یک گناهِ راستینِ مصورسازی داده است و باز هم بسیار رایج.
+می‌فهمم چرا این خطا رایج است، چون به نظر می‌رسد بسیاری از ما به این موضوع چندان فکر نکرده‌ایم.
 
-![Are You Using the Right Color Scale for Your Data?](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/ColorScales.svg)
+![آیا برای داده‌تان از طیف رنگی درست استفاده می‌کنید؟](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/ColorScales.svg)
 
-Color scales are pretty, but we have to be extra careful.
-When color scales (or color gradients) are used to represent numerical data, the darkest and lightest colors should have special meanings.
-You can decide what those special meanings are: e.g., max, min, mean, zero. But they should represent something meaningful. 
-A data visualization sin for heat maps/color gradients is when the lightest or darkest colors are some arbitrary numbers. 
-*This is as bad as the longest bar in a bar chart not being the largest value.* Can you imagine that?  
+طیف‌های رنگی زیبا هستند، اما باید بسیار محتاط باشیم.
+وقتی طیف‌های رنگی (یا گرادیان‌های رنگی) برای نمایش داده‌ی عددی به کار می‌روند، تیره‌ترین و روشن‌ترین رنگ‌ها باید معنای ویژه‌ای داشته باشند.
+خودتان می‌توانید تصمیم بگیرید آن معناهای ویژه چه باشند: مثلاً بیشینه، کمینه، میانگین یا صفر. اما باید نمایانگر چیزی معنادار باشند.
+یک گناهِ مصورسازی داده در نقشه‌های حرارتی/گرادیان‌های رنگی این است که روشن‌ترین یا تیره‌ترین رنگ‌ها اعدادی دلبخواه باشند.
+*این درست به بدیِ آن است که بلندترین میله در نمودار میله‌ای بزرگ‌ترین مقدار نباشد.* می‌توانید چنین چیزی را تصور کنید؟
 
-# 4. Friends Don't Let Friends Make Bar Plot Meadow 
+# ۴. دوستان نمی‌گذارند دوستانشان «چمن‌زار نمودار میله‌ای» بسازند
 
-We talked about no bar charts for mean separation, but this is a different issue. 
-It has to do with presenting results of a multi-factorial experiment. 
-Bar plot meadows are very common in scientific publications and unfortunately also *ineffective* in communicating the results. 
+درباره‌ی نساختن نمودار میله‌ای برای جداسازی میانگین صحبت کردیم، اما این موضوع دیگری است.
+این به نمایش نتایج یک آزمایش چندعاملی مربوط می‌شود.
+چمن‌زارهای نمودار میله‌ای در انتشارات علمی بسیار رایج و متأسفانه در انتقال نتایج نیز *ناکارآمد‌اند*.
 
-![Horrendous Giant Bar Plot vs. Better Designed Plot](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/AvoidBarPlotMeadow.png)
+![نمودار میله‌ای غول‌آسا و هولناک در برابر نمودار بهتر طراحی‌شده](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/AvoidBarPlotMeadow.png)
 
-Data from: [Matand et al., 2020, BMC Plant Biology](https://link.springer.com/article/10.1186/s12870-020-2243-7)
+داده‌ها از: [Matand et al., 2020, BMC Plant Biology](https://link.springer.com/article/10.1186/s12870-020-2243-7)
 
-Bar plot meadows are common because multi-factorial experiments are common. 
-However, a bar plot meadow is poorly designed for its purpose. 
-To communicate results of a multi-factorial experiment, it requires thoughtful designs regarding grouping/faceting by factors of interest.
+چمن‌زارهای نمودار میله‌ای رایج‌اند، چون آزمایش‌های چندعاملی رایج‌اند.
+با این حال، چمن‌زار نمودار میله‌ای برای هدفش ضعیف طراحی شده است.
+برای انتقال نتایج یک آزمایش چندعاملی، به طراحی‌های سنجیده در زمینه‌ی گروه‌بندی/وجه‌بندی (faceting) بر پایه‌ی عامل‌های موردنظر نیاز است.
 
-In this example, I focus on comparing the effect of `Treatment` & `Explant` on `Response` at the level of each `Variety`. 
-However, if the focus is the effect of `Treatment` & `Variety` on `Response` at the level of each `Exaplant`, then it will require a different layout. 
+در این نمونه، تمرکز من بر مقایسه‌ی اثر `Treatment` و `Explant` بر `Response` در سطح هر `Variety` است.
+اما اگر تمرکز بر اثر `Treatment` و `Variety` بر `Response` در سطح هر `Explant` باشد، آنگاه به چیدمان متفاوتی نیاز خواهد بود.
 
-# 5. Friends Don't Let Friends Make Heatmap without (Considering) Reordering Rows & Columns 
+# ۵. دوستان نمی‌گذارند دوستانشان بدون (در نظر گرفتنِ) بازچینش سطرها و ستون‌ها نقشه‌ی حرارتی بسازند
 
-Heatmaps are very common in scientific publications, and *very very* common in omics papers. 
-However, for heatmaps to be effective, we have to consider the ordering of rows & columns. 
+نقشه‌های حرارتی در انتشارات علمی بسیار رایج‌اند و در مقاله‌های اومیکس (omics) *بسیار بسیار* رایج.
+با این حال، برای این‌که نقشه‌های حرارتی کارآمد باشند، باید ترتیب سطرها و ستون‌ها را در نظر بگیریم.
 
-![A Heatmap before and after reordering rows and columns](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Reorder_rows_and_columns_for_heatmap.png) 
+![یک نقشه‌ی حرارتی پیش و پس از بازچینش سطرها و ستون‌ها](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Reorder_rows_and_columns_for_heatmap.png)
 
-In this example, I have cells as columns and features as rows. Grids are showing z scores. 
-It is impossible to get anything useful out of the heatmap without reordering rows and columns. 
-We can reorder rows and columns using clustering, but that is not the only way. 
-Of course, if the rows and columns are mapping to physical entities (rows and columns of a 96-well plate), then you can't reorder them. 
-But it is a very good idea to at least consider reordering rows and columns. 
+در این نمونه، سلول‌ها را به‌عنوان ستون و ویژگی‌ها را به‌عنوان سطر دارم. خانه‌ها امتیازهای z را نشان می‌دهند.
+بدون بازچینش سطرها و ستون‌ها، بیرون کشیدن هر چیز مفیدی از این نقشه‌ی حرارتی ناممکن است.
+می‌توانیم سطرها و ستون‌ها را با خوشه‌بندی بازچینش کنیم، اما این تنها راه نیست.
+البته اگر سطرها و ستون‌ها به موجودیت‌های فیزیکی نگاشته شوند (سطرها و ستون‌های یک پلیت ۹۶‌خانه‌ای)، آنگاه نمی‌توانید بازچینش‌شان کنید.
+اما دست‌کم در نظر گرفتن بازچینش سطرها و ستون‌ها فکر بسیار خوبی است.
 
-Data from: [Li et al., 2022, BioRxiv](https://www.biorxiv.org/content/10.1101/2022.07.04.498697v1) 
+داده‌ها از: [Li et al., 2022, BioRxiv](https://www.biorxiv.org/content/10.1101/2022.07.04.498697v1)
 
-## Bonus: heatmaps can be very pretty
+## امتیازی: نقشه‌های حرارتی می‌توانند بسیار زیبا باشند
 
-...if you are good are reordering rows/columns and choosing color gradients. 
-Here is an example "abstract aRt" generated from simulated data. 
+...اگر در بازچینش سطرها/ستون‌ها و انتخاب گرادیان‌های رنگی مهارت داشته باشید.
+اینجا یک نمونه «هنرِ انتزاعی» (abstract aRt) هست که از داده‌ی شبیه‌سازی‌شده تولید شده است.
 
-![aRt with Heatmap](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Abstract_R_2022_11_24.svg)        
+![هنر با نقشه‌ی حرارتی](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Abstract_R_2022_11_24.svg)
 
-R code for this aRt piece can be found [here](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Scripts/Abstract_aRt.R). 
+کد R این اثر هنری را می‌توانید [اینجا](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Scripts/Abstract_aRt.R) بیابید.
 
-For a tutorial on how to reorder rows and columns of a heatmap, see this [markdown file](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Heatmap_tutorial.md). 
+برای آموزش نحوه‌ی بازچینش سطرها و ستون‌های یک نقشه‌ی حرارتی، این [فایل markdown](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Heatmap_tutorial.md) را ببینید.
 
-# 6. Friends Don't Let Friends Make Heatmap without Checking Outliers 
+# ۶. دوستان نمی‌گذارند دوستانشان بدون بررسی داده‌های پرت نقشه‌ی حرارتی بسازند
 
-Outliers in heatmap can really change how we perceive and interpret the visualization. 
-This generalizes to all sort of visualizations that use colors to represent numeric data.
-Let me show you an example:
+داده‌های پرت در نقشه‌ی حرارتی می‌توانند نحوه‌ی درک و تفسیر ما از مصورسازی را به‌کلی دگرگون کنند.
+این موضوع به همه‌ی گونه‌های مصورسازی که از رنگ برای نمایش داده‌ی عددی استفاده می‌کنند تعمیم می‌یابد.
+بگذارید نمونه‌ای نشانتان دهم:
 
-![Did you check outliers](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Check_outliers_for_heatmap.svg)
+![آیا داده‌های پرت را بررسی کردید؟](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Check_outliers_for_heatmap.svg)
 
-In this example, I have 2 observations. For each observations, I measured 20 features. 
-Without checking for outliers, it may appear that the 2 observations are overall similar, except at 2 features. 
-However, after maxing out the color scale around 95th percentile of the data, it reveals that the two observations are distinct across all features. 
+در این نمونه، ۲ مشاهده دارم. برای هر مشاهده، ۲۰ ویژگی را اندازه‌گیری کردم.
+بدون بررسی داده‌های پرت، ممکن است چنین به نظر برسد که این دو مشاهده در کل مشابه‌اند، مگر در ۲ ویژگی.
+اما پس از اشباع کردن طیف رنگی در حدود صدک ۹۵اُمِ داده، آشکار می‌شود که این دو مشاهده در تمام ویژگی‌ها متمایز‌اند.
 
-# 7. Friends Don't Let Friends Forget to Check Data Range at Each Factor Level 
+# ۷. دوستان نمی‌گذارند دوستانشان فراموش کنند بازه‌ی داده را در هر سطح از عامل بررسی کنند
 
-This is a common issue that many of us have encountered. 
-In a multifactor experiment, sometimes the range of the response variable changes widely between different factor levels. 
+این مسئله‌ای رایج است که بسیاری از ما با آن روبه‌رو شده‌ایم.
+در یک آزمایش چندعاملی، گاهی بازه‌ی متغیر پاسخ میان سطوح مختلفِ عامل به‌طور گسترده تغییر می‌کند.
 
-![Did you check data range at each factor level](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Check_range_at_factor_level.svg)
+![آیا بازه‌ی داده را در هر سطح از عامل بررسی کردید؟](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Check_range_at_factor_level.svg)
 
-This hypothetical experiment measured 3 compounds across 2 groups (control vs. treatment). 
-Without checking data range for each compound, you will likely have missed that the treatment had a strong effect on compound 1.
-This is because the concentration of compound 1 has a much narrower range than the other compounds in this experiment. 
+این آزمایش فرضی ۳ ترکیب را در ۲ گروه (شاهد در برابر تیمار) اندازه‌گیری کرد.
+بدون بررسی بازه‌ی داده برای هر ترکیب، احتمالاً از دست می‌دادید که تیمار اثری قوی بر ترکیب ۱ داشته است.
+این به آن دلیل است که غلظت ترکیب ۱ در این آزمایش بازه‌ای بسیار باریک‌تر از دیگر ترکیب‌ها دارد.
 
-# 8. Friends Don't Let Friends Make Network Graphs without Trying Different Layouts
+# ۸. دوستان نمی‌گذارند دوستانشان بدون آزمودن چیدمان‌های گوناگون نمودار شبکه‌ای بسازند
 
-Network graphs are common in scientific publications. They are super useful in presenting relationship data. 
-However, the appearance (not the topology) of the network can make a huge difference in determining if a network graph is effective. 
+نمودارهای شبکه‌ای در انتشارات علمی رایج‌اند. آن‌ها در نمایش داده‌های رابطه‌ای بسیار مفیدند.
+با این حال، ظاهر (نه توپولوژیِ) شبکه می‌تواند تفاوت بزرگی در کارآمدی یک نمودار شبکه‌ای ایجاد کند.
 
-![Try different network layouts](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/TryDifferentLayouts.svg) 
+![چیدمان‌های شبکه‌ای مختلف را بیازمایید](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/TryDifferentLayouts.svg)
 
-Layouts can drastically change the appearance of networks, making them easier or harder to interpret.
-Here are 3 network graphs from the same data. They look very different from each other.
-Data from: [Li et al., 2022, BioRxiv](https://www.biorxiv.org/content/10.1101/2022.07.04.498697v1) 
+چیدمان‌ها می‌توانند ظاهر شبکه‌ها را به‌شدت تغییر دهند و تفسیرشان را آسان‌تر یا سخت‌تر کنند.
+اینجا ۳ نمودار شبکه‌ای از یک داده‌ی یکسان هستند. آن‌ها بسیار متفاوت از یکدیگر به نظر می‌رسند.
+داده‌ها از: [Li et al., 2022, BioRxiv](https://www.biorxiv.org/content/10.1101/2022.07.04.498697v1)
 
-Here is 9 different layouts for the _same_ network. They can look very different. 
+اینجا ۹ چیدمان مختلف برای *همان* شبکه هست. آن‌ها می‌توانند بسیار متفاوت به نظر برسند.
 
-![Different layouts](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/network_layouts.gif)
+![چیدمان‌های مختلف](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/network_layouts.gif)
 
-The R script to make this animation is available [here](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Scripts/Animated_networks.Rmd)
+اسکریپت R برای ساخت این انیمیشن [اینجا](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Scripts/Animated_networks.Rmd) در دسترس است.
 
-![Different layout of the animation](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Different_layouts.png)
+![چیدمان متفاوتِ انیمیشن](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Different_layouts.png)
 
-# 9. Friends Don't Let Friends Confuse Position-based Visualizations with Length-based Visualizations 
+# ۹. دوستان نمی‌گذارند دوستانشان مصورسازی‌های مبتنی بر موقعیت را با مصورسازی‌های مبتنی بر طول اشتباه بگیرند
 
-This is always the elephant in the room and the essence of many misleading visualizations. 
-In this example, I measured a response variable across 3 time points. 
-Two of the following graphs are fine, but one of them is a data visualization crime. Can you see why? 
+این همیشه آن مسئله‌ی آشکاری است که همه از کنارش می‌گذرند و جانِ بسیاری از مصورسازی‌های گمراه‌کننده است.
+در این نمونه، یک متغیر پاسخ را در ۳ نقطه‌ی زمانی اندازه‌گیری کردم.
+دو تا از نمودارهای زیر خوب‌اند، اما یکی از آن‌ها یک جنایتِ مصورسازی داده است. می‌توانید ببینید چرا؟
 
-![Position vs. length based visualizations](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Position_and_length_based_visualizations.svg)
+![مصورسازی‌های مبتنی بر موقعیت در برابر مبتنی بر طول](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Position_and_length_based_visualizations.svg)
 
-In dot and line plots, values are represented by positions along the x and y axis.
-The same idea applies to other position based visualizations, such as box plots. 
-In bar plots, values are represented by the distance from the x axis, and thus the length of the bar. 
+در نمودارهای نقطه‌ای و خطی، مقادیر با موقعیت‌ها در امتداد محورهای x و y نمایش داده می‌شوند.
+همین ایده برای دیگر مصورسازی‌های مبتنی بر موقعیت، مانند نمودارهای جعبه‌ای، هم صادق است.
+در نمودارهای میله‌ای، مقادیر با فاصله از محور x و در نتیجه با طول میله نمایش داده می‌شوند.
 
-The 3rd graph is not 0-based, which makes the bar length at time point 2 about 3x longer than that at time point 1.
-In fact, the true difference in means is closer to 1.6x. 
-I hope you can see how confusing length and position based visualizations can lead to misleading graphs.   
+نمودار سوم از صفر آغاز نمی‌شود، که باعث می‌شود طول میله در نقطه‌ی زمانی ۲ حدود ۳ برابر بلندتر از نقطه‌ی زمانی ۱ به نظر برسد.
+در واقع، تفاوت راستین در میانگین‌ها به ۱٫۶ برابر نزدیک‌تر است.
+امیدوارم بتوانید ببینید که چگونه اشتباه گرفتن مصورسازی‌های مبتنی بر طول و موقعیت می‌تواند به نمودارهای گمراه‌کننده بینجامد.
 
-## Watch out for bar plots with broken axis 
+## مراقب نمودارهای میله‌ای با محور شکسته باشید
 
-Broken axis may be useful for depicting data across a wide range of numeric values. 
-(Alternatively, log scaled axis can be used instead.) 
-Broken axis are fine for position based graphics, because the data are represented by positions along the axis. 
-However, we must be very careful with bar plots that have broken axis. Here is an example. 
+محور شکسته می‌تواند برای نمایش داده در گستره‌ی وسیعی از مقادیر عددی مفید باشد.
+(به‌طور جایگزین، می‌توان از محور با مقیاس لگاریتمی استفاده کرد.)
+محور شکسته برای نمودارهای مبتنی بر موقعیت خوب است، چون داده‌ها با موقعیت‌ها در امتداد محور نمایش داده می‌شوند.
+اما باید با نمودارهای میله‌ای که محور شکسته دارند بسیار محتاط باشیم. اینجا یک نمونه هست.
 
-![Broken axis](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Broken_axis.svg) 
+![محور شکسته](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Broken_axis.svg)
 
-In this example, two graphs (left vs. right) are showing the same data. 
-However, by changing where the axis is broken, one can make certain bars looks longer or shorter. 
-In this example, the length of bar "d" can look *really* different.
-The illusion of bar "d" being very short on the right graph boils down to bar plot being a length based graphics, not a position based graphics. 
+در این نمونه، دو نمودار (چپ در برابر راست) داده‌ی یکسانی را نشان می‌دهند.
+اما با تغییر جایی که محور شکسته می‌شود، می‌توان کاری کرد که برخی میله‌ها بلندتر یا کوتاه‌تر به نظر برسند.
+در این نمونه، طول میله‌ی «d» می‌تواند *واقعاً* متفاوت به نظر برسد.
+توهمِ بسیار کوتاه بودن میله‌ی «d» در نمودار سمت راست به این برمی‌گردد که نمودار میله‌ای گرافیکی مبتنی بر طول است، نه مبتنی بر موقعیت.
 
-Example R code for broken axis can be found [here](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Scripts/Broken_axis.R). 
+کد R نمونه برای محور شکسته را می‌توانید [اینجا](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Scripts/Broken_axis.R) بیابید.
 
-# 10. Friends Don't Let Friends Make Pie Chart 
+# ۱۰. دوستان نمی‌گذارند دوستانشان نمودار دایره‌ای بسازند
 
-Pie chart is a common type of visualization for fractional data, where fractions add up to 100%. 
-This is achieved by dividing a circle into sectors, and the sectors add up to a full circle. 
-Pie charts have been criticized, because human are much worse in reading angles and area than reading lengths. 
-Here is a [blog post](https://www.data-to-viz.com/caveat/pie.html) that explores that. 
+نمودار دایره‌ای گونه‌ای رایج از مصورسازی برای داده‌ی کسری است، جایی که کسرها روی‌هم ۱۰۰٪ می‌شوند.
+این کار با تقسیم یک دایره به بخش‌ها (قطاع‌ها) انجام می‌شود و قطاع‌ها روی‌هم یک دایره‌ی کامل را می‌سازند.
+نمودارهای دایره‌ای مورد نقد قرار گرفته‌اند، چون انسان در خواندن زاویه‌ها و مساحت بسیار ضعیف‌تر از خواندن طول‌هاست.
+اینجا یک [نوشته‌ی وبلاگی](https://www.data-to-viz.com/caveat/pie.html) هست که این موضوع را بررسی می‌کند.
 
-![Don't make pie charts](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/dont_pie_chart.svg)
+![نمودار دایره‌ای نسازید](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/dont_pie_chart.svg)
 
-In this example, we have two groups, each contains 4 sub-categories. 
-In classic pie charts, the angles (and thus arc lengths & sector area) represent the data. 
-The problem is that it is *very* difficult to compare between groups. 
-We can visually simplify the pie chart into donut charts, where the data are now represented by arc lengths. 
-However, if we want to use lengths to represent the data, why don't we just unwrap the donut and make stacked bars?
-In stacked bar graphs, bars are shown side-by-side and thus easier to compare across groups. 
+در این نمونه، دو گروه داریم که هر کدام ۴ زیرمجموعه دارند.
+در نمودارهای دایره‌ای کلاسیک، زاویه‌ها (و در نتیجه طول کمان‌ها و مساحت قطاع‌ها) نمایانگر داده‌اند.
+مشکل اینجاست که مقایسه میان گروه‌ها *بسیار* دشوار است.
+می‌توانیم نمودار دایره‌ای را به‌صورت دیداری به نمودارهای دوناتی ساده کنیم، جایی که داده‌ها اکنون با طول کمان‌ها نمایش داده می‌شوند.
+اما اگر می‌خواهیم از طول‌ها برای نمایش داده استفاده کنیم، چرا فقط دونات را باز نکنیم و میله‌های انباشته نسازیم؟
+در نمودارهای میله‌ای انباشته، میله‌ها کنار هم نشان داده می‌شوند و در نتیجه مقایسه میان گروه‌ها آسان‌تر است.
 
-Fun fact: the scripts underlying stacked bars are much simpler than those underlying the pie charts and donut charts.
-If you want to produce sub-optimal graph types with ggplot, you actually have to work extra hard.
+نکته‌ی جالب: اسکریپت‌های زیربنایی میله‌های انباشته بسیار ساده‌تر از اسکریپت‌های زیربنایی نمودارهای دایره‌ای و دوناتی‌اند.
+اگر بخواهید با ggplot گونه‌های نمودارِ نه‌چندان بهینه تولید کنید، در واقع باید تلاش بیشتری بکنید.
 
-# 11. Friends Don't Let Friends Make Concentric Donuts
+# ۱۱. دوستان نمی‌گذارند دوستانشان دونات‌های هم‌مرکز بسازند
 
-In this example, we have 3 groups, each of which contains two sub-categories (Type I or Type II). 
+در این نمونه، ۳ گروه داریم که هر کدام دو زیرمجموعه دارند (نوع I یا نوع II).
 
-![Don't make concentric donuts](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/dont_concentric_donuts.svg)
+![دونات‌های هم‌مرکز نسازید](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/dont_concentric_donuts.svg)
 
-In concentric donuts, you might be tempted to say the data are represented by the arc lengths, which is in fact **inaccurate**. 
-The arc lengths on the outer rings are much longer than those in the inner rings. 
-Group 2 and Group 3 have the same exact values, but the arc lengths of Group 3 are much longer. 
-In fact the data are represented by the *arc angles*, which we are bad at reading. 
+در دونات‌های هم‌مرکز، ممکن است وسوسه شوید بگویید داده‌ها با طول کمان‌ها نمایش داده می‌شوند، که در واقع **نادرست** است.
+طول کمان‌ها در حلقه‌های بیرونی بسیار بلندتر از حلقه‌های درونی‌اند.
+گروه ۲ و گروه ۳ دقیقاً مقادیر یکسانی دارند، اما طول کمان‌های گروه ۳ بسیار بلندتر است.
+در واقع داده‌ها با *زاویه‌های کمان* نمایش داده می‌شوند، که ما در خواندن آن‌ها ضعیف هستیم.
 
-Since outer rings are longer, the ordering of the groups (which group goes to which ring) has a big impact on the impression of the plot.
-It can lead to the apparent paradox where larger values have shorter arcs. 
-The better (and simpler!) alternative is just unwrap the donuts and make a good old stacked bar plot. 
-BTW, this is also my main issue with [circos plots](http://circos.ca/) and other circular plot layouts.
+از آنجا که حلقه‌های بیرونی بلندتر‌اند، ترتیب گروه‌ها (این‌که کدام گروه به کدام حلقه می‌رود) اثر بزرگی بر برداشت از نمودار دارد.
+این می‌تواند به آن پارادوکس ظاهری بینجامد که مقادیر بزرگ‌تر کمان‌های کوتاه‌تری داشته باشند.
+جایگزین بهتر (و ساده‌تر!) این است که فقط دونات‌ها را باز کنید و یک نمودار میله‌ای انباشته‌ی خوبِ قدیمی بسازید.
+راستی، این ایراد اصلی من به [نمودارهای circos](http://circos.ca/) و دیگر چیدمان‌های نموداری دایره‌ای نیز هست.
 
-# 12. Friends Don't Let Friends Use Red/Green and Rainbow color scales
+# ۱۲. دوستان نمی‌گذارند دوستانشان از طیف‌های رنگی قرمز/سبز و رنگین‌کمانی استفاده کنند
 
-![are you making a "safe" heatmap?](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Color_blind_grey_scale_safe_heatmap.svg)
+![آیا یک نقشه‌ی حرارتی «ایمن» می‌سازید؟](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Color_blind_grey_scale_safe_heatmap.svg)
 
-Deuteranomaly is the most common type of red/green colorblindness, occurring in 1/16 male and 1/256 female. 
-Any color scales that use shades of red and shades of green in the same time would be a problem for a person with red/green colorblindness (third column of the figure). 
-In addition, red/green and rainbow do not preserve information well at all when printed on black/white (grey scale, second column in figure). 
-Many scientific software still use red/green or rainbow as the default color scales, which drives me crazy. 
-More "modern" color scales, such as [viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html) are both colorblind-friendly and grey scale-safe (third row of figure). 
-And they look nice too. 
+دوترانومالی (Deuteranomaly) رایج‌ترین گونه‌ی کوررنگیِ قرمز/سبز است که در ۱ از هر ۱۶ مرد و ۱ از هر ۲۵۶ زن رخ می‌دهد.
+هر طیف رنگی که هم‌زمان از سایه‌های قرمز و سایه‌های سبز استفاده کند، برای فردِ دارای کوررنگیِ قرمز/سبز مشکل‌ساز خواهد بود (ستون سوم شکل).
+افزون بر این، قرمز/سبز و رنگین‌کمانی هنگام چاپ روی سیاه‌وسفید (مقیاس خاکستری، ستون دوم شکل) اطلاعات را اصلاً به‌خوبی حفظ نمی‌کنند.
+بسیاری از نرم‌افزارهای علمی هنوز قرمز/سبز یا رنگین‌کمانی را به‌عنوان طیف رنگی پیش‌فرض به کار می‌برند، که مرا دیوانه می‌کند.
+طیف‌های رنگی «مدرن‌تر»، مانند [viridis](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)، هم برای کوررنگی دوستدار‌اند و هم در مقیاس خاکستری ایمن (ردیف سوم شکل).
+خوش‌رنگ هم هستند.
 
-# 13. Friends Don't Let Friends Forget to Reorder Stacked Bar Plot
-Stacked bar plots are useful for visualizing proportion data. 
-Stacked bar plots are commonly used to visualize community structure or population structure or admixture analysis. 
-This kind of visualization boils down to a collection of samples, where each sample contains multiple classes of members. 
-However, when we have many samples and many classes, stacked bar plots need to be optimized to be effective. 
-And by "optimize" I mean the grouping and ordering of samples. 
+# ۱۳. دوستان نمی‌گذارند دوستانشان فراموش کنند نمودار میله‌ای انباشته را بازچینش کنند
 
-![Reorder your stacked bars](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Reorder_stacked_bars.png)
+نمودارهای میله‌ای انباشته برای مصورسازی داده‌ی نسبتی مفیدند.
+نمودارهای میله‌ای انباشته معمولاً برای مصورسازی ساختار جامعه یا ساختار جمعیت یا تحلیل آمیختگی (admixture) به کار می‌روند.
+این گونه از مصورسازی در نهایت به مجموعه‌ای از نمونه‌ها فرو می‌کاهد، که هر نمونه چندین رده از اعضا را دربر می‌گیرد.
+با این حال، وقتی نمونه‌ها و رده‌های زیادی داریم، نمودارهای میله‌ای انباشته باید بهینه شوند تا کارآمد باشند.
+و منظورم از «بهینه‌سازی» گروه‌بندی و ترتیب نمونه‌هاست.
 
-Here we have an example data with 100 samples and 8 classes of member. 
-Due to the number of samples and classes, it is very hard to discern anything from this graph without optimizing the order of bars. What the heck am I looking at? 
-After reordering the bars, __wow__, that really made a difference, don't you think? 
-For a tutorial on how to optimize a stack bar plot, see [this script](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Scripts/stacked_bars_optimization.Rmd).
+![میله‌های انباشته‌تان را بازچینش کنید](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Reorder_stacked_bars.png)
 
-# 14. Friends Don't Let Friends Mix Stacked Bars and Mean separation
-Sometimes a visualization gets confusing and ineffective when it tries to too many things at once. 
-One such example is mixing stacked bar plots and mean separation plots. 
-One displays proportional data adding up to 100%, the other displays the difference in means and dispersion around means. 
-These are very distinct tasks in data visualization. 
+اینجا یک داده‌ی نمونه با ۱۰۰ نمونه و ۸ رده‌ی عضو داریم.
+به‌دلیل تعداد نمونه‌ها و رده‌ها، بدون بهینه‌سازی ترتیب میله‌ها تشخیص هر چیزی از این نمودار بسیار سخت است. اصلاً به چه چیزی نگاه می‌کنم؟
+پس از بازچینش میله‌ها، __وای__، این واقعاً تفاوت ایجاد کرد، این‌طور فکر نمی‌کنید؟
+برای آموزش نحوه‌ی بهینه‌سازی یک نمودار میله‌ای انباشته، [این اسکریپت](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Scripts/stacked_bars_optimization.Rmd) را ببینید.
 
-In this hypothetical experiment, we had blueberry plants assigned to two groups.
-One group was the control; the other was treated with a chemical to make fruit development faster.  
-Each group had 5 plants.
-The response of the treatment was divided into 3 categories: 
-light green fruits, light blue fruits, and dark blue fruits. 
-100 fruits from each plant were examined and the number of fruits in each category was counted. 
-The percentage of fruits in each category was calculated and reported. 
-The question of the study is: did the chemical treatment work? 
+# ۱۴. دوستان نمی‌گذارند دوستانشان میله‌های انباشته و جداسازی میانگین را با هم درآمیزند
 
-![Don't mix stacked bar plots with mean separation plots](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/stacked_bar_vs_jitter.png) 
+گاهی یک مصورسازی وقتی می‌کوشد هم‌زمان کارهای زیادی انجام دهد، گیج‌کننده و ناکارآمد می‌شود.
+یکی از این نمونه‌ها درآمیختنِ نمودارهای میله‌ای انباشته و نمودارهای جداسازی میانگین است.
+یکی داده‌ی نسبتی را که روی‌هم ۱۰۰٪ می‌شود نمایش می‌دهد، دیگری تفاوت در میانگین‌ها و پراکندگی پیرامون میانگین‌ها را.
+این‌ها در مصورسازی داده وظایف بسیار متمایزی هستند.
 
-The first stacked bar plot is fine as the standard way to visualize proportion data. 
-It is clear that all categories add up to 100%, 
-and the chemical treatment strongly shifted the color profile towards the most developed stage (dark blue). 
+![میله‌های انباشته را با جداسازی میانگین درنیامیزید](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/stacked_bar_vs_jitter.svg)
 
-The middle stacked bar plot is problematic, 
-mainly because it is trying to do two distinct data visualization tasks at once. 
-When error bars and dots are overlaid onto the stacked bars, 
-it become unclear which error bars and dots are being compared. 
-Due to the nature of stacked bars, the error bars and dots of the upper stacks have to be shifted upwards,
-and thus interpretation of the y-axis for error bars and dots become not straightforward. 
+در این آزمایش فرضی، بوته‌های بلوبری را به دو گروه اختصاص دادیم.
+یک گروه شاهد بود؛ گروه دیگر با ماده‌ای شیمیایی تیمار شد تا رشد میوه را سریع‌تر کند.
+هر گروه ۵ بوته داشت.
+پاسخ به تیمار به ۳ رده تقسیم شد:
+میوه‌های سبزِ روشن، میوه‌های آبیِ روشن، و میوه‌های آبیِ تیره.
+از هر بوته ۱۰۰ میوه بررسی شد و تعداد میوه‌های هر رده شمرده شد.
+درصد میوه‌ها در هر رده محاسبه و گزارش شد.
+پرسش پژوهش این است: آیا تیمار شیمیایی کارگر افتاد؟
 
-Finally, if the main point of the visualization is mean separation and dispersion around the mean, 
-the third graph is the better choice. 
-There is no ambiguity on which comparisons are being made.
-As shown in the first stacked bar plot, 
-the chemical treatment strongly increases the proportion of dark blue fruits, 
-at the expense of lighter color fruits. 
+نمودار میله‌ای انباشته‌ی نخست خوب است، به‌عنوان روش استانداردِ مصورسازی داده‌ی نسبتی.
+روشن است که همه‌ی رده‌ها روی‌هم ۱۰۰٪ می‌شوند،
+و تیمار شیمیایی نیمرخ رنگی را به‌شدت به‌سمت رشدیافته‌ترین مرحله (آبیِ تیره) جابه‌جا کرد.
 
-# Friends don't let friends use histogram for small sample sizes 
-I've seen histogram being proposed as the replacement for bar plots. 
-However, a serious caveat for histogram is that histograms are not robust to bin numbers for small (and even moderate) sample sizes. 
-In a histogram, we first bin the data into a defined number of bins.
-Then we count how many observations are there for each bin and graph them. 
+نمودار میله‌ای انباشته‌ی میانی مشکل‌دار است،
+عمدتاً به این دلیل که می‌کوشد هم‌زمان دو وظیفه‌ی متمایزِ مصورسازی داده را انجام دهد.
+وقتی میله‌های خطا و نقطه‌ها روی میله‌های انباشته گذاشته می‌شوند،
+نامشخص می‌شود که کدام میله‌های خطا و نقطه‌ها با هم مقایسه می‌شوند.
+به‌دلیل ماهیت میله‌های انباشته، میله‌های خطا و نقطه‌های انباشته‌های بالایی باید رو به بالا جابه‌جا شوند،
+و در نتیجه تفسیر محور y برای میله‌های خطا و نقطه‌ها سرراست نمی‌ماند.
 
-![Histogram with different sample sizes and bin numbers](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Histogram_for_small_n.png)
+در پایان، اگر نکته‌ی اصلیِ مصورسازی جداسازی میانگین و پراکندگی پیرامون میانگین باشد،
+نمودار سوم انتخاب بهتری است.
+هیچ ابهامی درباره‌ی این‌که کدام مقایسه‌ها انجام می‌شوند وجود ندارد.
+همان‌گونه که در نمودار میله‌ای انباشته‌ی نخست نشان داده شد،
+تیمار شیمیایی به‌شدت نسبت میوه‌های آبیِ تیره را افزایش می‌دهد،
+به بهای میوه‌های کم‌رنگ‌تر.
 
-In this example, I sampled _the same_ normal distribution 3 times with different sample sizes (n = 10, 100, and 1000).
-Even though they came from _the same_ normal distribution, the histograms look quite different based on the number of bins. 
-To showcase this, I plotted histograms for 10, 30, and 50 bins. 
+# دوستان نمی‌گذارند دوستانشان برای نمونه‌های کوچک از هیستوگرام استفاده کنند
 
-First of all, histogram makes no sense for small sample sizes. With small sample sizes (n < 30), the much better practice is to graph all data points. 
-Second of all, you can see that the shape of the histogram is only robust to changing bin number when the sample size is fairly large (like 1000).
-Even if n = 100, the appearance of the histogram can change drastically as the number of bins changes. 
+هیستوگرام را دیده‌ام که به‌عنوان جایگزین نمودار میله‌ای پیشنهاد می‌شود.
+اما یک هشدار جدی درباره‌ی هیستوگرام این است که هیستوگرام‌ها برای نمونه‌های کوچک (و حتی متوسط) نسبت به تعداد بازه‌ها (bin) پایدار نیستند.
+در یک هیستوگرام، ابتدا داده را در تعداد مشخصی بازه دسته‌بندی می‌کنیم.
+سپس می‌شماریم که برای هر بازه چند مشاهده وجود دارد و آن‌ها را رسم می‌کنیم.
 
-# Friends don't let friends use boxpot for bimodal data
-This figure should speak for itself. Is your boxplot hiding something from you?  
+![برای نمونه‌های کوچک از هیستوگرام استفاده نکنید](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/Histogram_for_small_n.svg)
 
-![Is your box plot hiding something from you](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/BoxPlots_for_binomial.png)
+در این نمونه، همان توزیع نرمال را ۳ بار با اندازه‌های نمونه‌ی متفاوت (n = ۱۰، ۱۰۰ و ۱۰۰۰) نمونه‌برداری کردم.
+با آن‌که همگی از یک توزیع نرمال آمده‌اند، هیستوگرام‌ها بسته به تعداد بازه‌ها کاملاً متفاوت به نظر می‌رسند.
+برای نشان دادن این موضوع، هیستوگرام‌ها را برای ۱۰، ۳۰ و ۵۰ بازه رسم کردم.
 
-Before making a boxplot, one should check the distribution of their data, since box plots focus on median and quartiles, they cannot handle bimodal data (and by extension data with multiple modes).
-Ploting all the data points using `geom_quasirandom()` from the [ggbeeswarm package](https://github.com/eclarke/ggbeeswarm) is the best practice for small sample to moderate (less than tens of thousands) sample sizes, as distribution-based graphics such as violin plots and histograms are not robust to small sample sizes. See [this section](https://github.com/cxli233/FriendsDontLetFriends#2-friends-dont-let-friends-make-violin-plots-for-small-sample-sizes) and [this section](https://github.com/cxli233/FriendsDontLetFriends/tree/main?tab=readme-ov-file#friends-dont-let-friends-use-histogram-for-small-sample-sizes) for details. 
+نخست از همه، هیستوگرام برای اندازه‌های نمونه‌ی کوچک هیچ معنایی ندارد. با نمونه‌های کوچک (n < ۳۰)، شیوه‌ی بسیار بهتر رسم تمام نقاط داده است.
+دوم از همه، می‌توانید ببینید که شکل هیستوگرام تنها زمانی نسبت به تغییر تعداد بازه‌ها پایدار است که اندازه‌ی نمونه به‌قدر کافی بزرگ باشد (مانند ۱۰۰۰).
+حتی اگر n = ۱۰۰ باشد، ظاهر هیستوگرام می‌تواند با تغییر تعداد بازه‌ها به‌شدت دگرگون شود.
 
-# Conclusion (?)
+# دوستان نمی‌گذارند دوستانشان برای داده‌ی دومُدی از نمودار جعبه‌ای استفاده کنند
 
-That's it for now. I will update this when I have the time (and inspirations) to produce more examples. 
-Not sure what the next one will be, but stay tuned! 
+این شکل باید خودش گویا باشد. آیا نمودار جعبه‌ای‌تان چیزی را از شما پنهان می‌کند؟
+
+![آیا نمودار جعبه‌ای‌تان چیزی را پنهان می‌کند؟](https://github.com/cxli233/FriendsDontLetFriends/blob/main/Results/BoxPlots_for_binomial.svg)
+
+پیش از ساختن یک نمودار جعبه‌ای، باید توزیع داده‌تان را بررسی کنید، چون نمودارهای جعبه‌ای بر میانه و چارک‌ها تمرکز دارند و نمی‌توانند داده‌ی دومُدی (و به‌تبع آن داده‌ی چندمُدی) را مدیریت کنند.
+رسم تمام نقاط داده با `geom_quasirandom()` از بسته‌ی ggbeeswarm بهترین شیوه برای نمونه‌های کوچک تا متوسط (کمتر از ده‌ها هزار) است، چون گرافیک‌های مبتنی بر توزیع مانند نمودارهای ویولنی و هیستوگرام نسبت به نمونه‌های کوچک پایدار نیستند. برای جزئیات، [این بخش](https://github.com/cxli233/FriendsDontLetFriends#2-friends-dont-let-friends-make-violin-plots-for-small-sample-sizes) و [این بخش](https://github.com/cxli233/FriendsDontLetFriends?tab=readme-ov-file#friends-dont-let-friends-use-histogram-for-small-sample-sizes) را ببینید.
+
+# نتیجه‌گیری (؟)
+
+فعلاً همین‌قدر کافی است. هر وقت زمان (و الهام) برای تولید نمونه‌های بیشتر داشته باشم، این را به‌روزرسانی خواهم کرد.
+مطمئن نیستم مورد بعدی چه خواهد بود، اما همراه بمانید!
+
+</div>
